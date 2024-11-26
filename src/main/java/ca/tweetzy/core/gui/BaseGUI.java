@@ -19,7 +19,7 @@ public abstract class BaseGUI extends Gui {
 		setTitle(TextUtils.formatText(title));
 		setRows(rows);
 		setDefaultSound(null);
-		setDefaultItem(new TItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName(" ").toItemStack());
+		setDefaultItem(new TItemBuilder(XMaterial.BLACK_STAINED_GLASS_PANE.parseMaterial()).setName(" ").toItemStack());
 	}
 
 	public BaseGUI(final Gui parent,final String title) {
