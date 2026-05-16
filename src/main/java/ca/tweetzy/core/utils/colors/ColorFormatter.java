@@ -306,7 +306,8 @@ public final class ColorFormatter {
     }
 
     /**
-     * Gets a simplified major version (..., 9, 10, ..., 14).
+     * Gets a simplified major version. Returns major*10 + minor, so
+     * 1.13.2 -> 13, 1.21 -> 31, 26.1.2 -> 261.
      * In most cases, you shouldn't be using this method.
      *
      * @return the simplified major version.
@@ -327,10 +328,14 @@ public final class ColorFormatter {
             version = version.substring(0, index);
         }
 
-        // 1.13.2, 1.14.4, etc...
+        // 1.13.2, 1.14.4, 26.1.2, etc... -> drop patch
         int lastDot = version.lastIndexOf('.');
         if (version.indexOf('.') != lastDot) version = version.substring(0, lastDot);
 
-        return Integer.parseInt(version.substring(2));
+        // "1.13" -> 13, "26.1" -> 261
+        String[] parts = version.split("\\.");
+        int major = Integer.parseInt(parts[0]);
+        int minor = parts.length > 1 ? Integer.parseInt(parts[1]) : 0;
+        return major * 10 + minor;
     }
 }
